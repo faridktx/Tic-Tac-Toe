@@ -3,21 +3,23 @@
 #include <cstdlib>
 #include <ctime>
 
+using namespace std;
+
 // Function to draw the Tic-Tac-Toe board
-void drawBoard(const std::vector<std::vector<char>>& board) {
-    std::cout << "-------------" << std::endl;
+void drawBoard(const vector<vector<char>>& board) {
+    cout << "-------------" << endl;
     for (int i = 0; i < 3; ++i) {
-        std::cout << "| ";
+        cout << "| ";
         for (int j = 0; j < 3; ++j) {
-            std::cout << board[i][j] << " | ";
+            cout << board[i][j] << " | ";
         }
-        std::cout << std::endl;
-        std::cout << "-------------" << std::endl;
+        cout << endl;
+        cout << "-------------" << endl;
     }
 }
 
 // Function to check if a player has won
-bool checkWin(const std::vector<std::vector<char>>& board, char player) {
+bool checkWin(const vector<vector<char>>& board, char player) {
     // Check rows
     for (int i = 0; i < 3; ++i) {
         if (board[i][0] == player && board[i][1] == player && board[i][2] == player)
@@ -39,7 +41,7 @@ bool checkWin(const std::vector<std::vector<char>>& board, char player) {
 }
 
 // Function to check if the board is full
-bool checkFull(const std::vector<std::vector<char>>& board) {
+bool checkFull(const vector<vector<char>>& board) {
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             if (board[i][j] == ' ')
@@ -50,8 +52,8 @@ bool checkFull(const std::vector<std::vector<char>>& board) {
 }
 
 // Function for the CPU to make a random move
-void makeCPUMove(std::vector<std::vector<char>>& board) {
-    std::vector<int> availableMoves;
+void makeCPUMove(vector<vector<char>>& board) {
+    vector<int> availableMoves;
 
     // Find all available moves
     for (int i = 0; i < 3; ++i) {
@@ -72,7 +74,7 @@ void makeCPUMove(std::vector<std::vector<char>>& board) {
 
 // Function to play the game against the CPU
 void playGame() {
-    std::vector<std::vector<char>> board(3, std::vector<char>(3, ' '));
+    vector<vector<char>> board(3, vector<char>(3, ' '));
     char currentPlayer = 'X';
 
     while (true) {
@@ -82,21 +84,21 @@ void playGame() {
         // Player's move
         if (currentPlayer == 'X') {
             int row, col;
-            std::cout << "Player " << currentPlayer << ", enter your move (row [1-3] and column [1-3]): ";
-            std::cin >> row >> col;
+            cout << "Player " << currentPlayer << ", enter your move (row [1-3] and column [1-3]): ";
+            cin >> row >> col;
             --row; // Adjust for zero-based indexing
             --col;
 
             // Check if the move is valid
             if (row < 0 || row >= 3 || col < 0 || col >= 3 || board[row][col] != ' ') {
-                std::cout << "Invalid move. Try again." << std::endl;
+                cout << "Invalid move. Try again." << endl;
                 continue;
             }
 
             // Make the move
             board[row][col] = currentPlayer;
         }
-            // CPU's move
+        // CPU's move
         else {
             makeCPUMove(board);
         }
@@ -105,7 +107,7 @@ void playGame() {
         if (checkWin(board, currentPlayer)) {
             // Draw the final board
             drawBoard(board);
-            std::cout << "Player " << currentPlayer << " wins!" << std::endl;
+            cout << "Player " << currentPlayer << " wins!" << endl;
             break;
         }
 
@@ -113,7 +115,7 @@ void playGame() {
         if (checkFull(board)) {
             // Draw the final board
             drawBoard(board);
-            std::cout << "It's a tie!" << std::endl;
+            cout << "It's a tie!" << endl;
             break;
         }
 
